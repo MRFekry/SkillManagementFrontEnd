@@ -26,6 +26,8 @@ import { AdminSkillsComponent } from './admin/admin-skills/admin-skills.componen
 import { AdminScoresComponent } from './admin/admin-scores/admin-scores.component';
 import { AdminEmployeeSkillsComponent } from './admin/admin-employee-skills/admin-employee-skills.component';
 import { EmployeesDataTableComponent } from './employees/employees-data-table/employees-data-table.component';
+import { EmployeeService } from './services/employee.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -65,9 +67,10 @@ import { EmployeesDataTableComponent } from './employees/employees-data-table/em
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [EmployeeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
