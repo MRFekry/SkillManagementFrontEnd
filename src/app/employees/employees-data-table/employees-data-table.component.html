@@ -1,58 +1,65 @@
-<mat-form-field>
+<div class="data-table">
+  <br>
+  <button mat-raised-button color="primary"><mat-icon>add_box</mat-icon>Add New Employee</button>
+  <br>
+  
+  <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Type to search ...">
   </mat-form-field>
+</div>
+
   
-  <div class="mat-elevation-z8 data-table">
-    
-    <table mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
-      <!-- Id Column -->
-      <!-- <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-        <td mat-cell *matCellDef="let row">{{row.id}}</td>
-      </ng-container> -->
+<div class="mat-elevation-z8 data-table">
   
-      <!-- FirstName Column -->
-      <ng-container matColumnDef="FirstName">
-        <th class="reset-width" mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
-        <td class="reset-width" mat-cell *matCellDef="let row">{{row.FirstName}}</td>
+  <table mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
+    <!-- Id Column -->
+    <!-- <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+    </ng-container> -->
+
+    <!-- FirstName Column -->
+    <ng-container matColumnDef="FirstName">
+      <th class="reset-width" mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+      <td class="reset-width" mat-cell *matCellDef="let row">{{row.FirstName}}</td>
+    </ng-container>
+
+    <!-- LastName Column -->
+    <ng-container matColumnDef="LastName">
+        <th class="reset-width" mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+        <td class="reset-width" mat-cell *matCellDef="let row">{{row.LastName}}</td>
       </ng-container>
 
-      <!-- LastName Column -->
-      <ng-container matColumnDef="LastName">
-          <th class="reset-width" mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
-          <td class="reset-width" mat-cell *matCellDef="let row">{{row.LastName}}</td>
-        </ng-container>
+    <!-- Email Column -->
+    <ng-container matColumnDef="Email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+        <td mat-cell *matCellDef="let row">{{row.Email}}</td>
+      </ng-container>
 
-      <!-- Email Column -->
-      <ng-container matColumnDef="Email">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-          <td mat-cell *matCellDef="let row">{{row.Email}}</td>
-        </ng-container>
+    <!-- IsActive Column -->
+    <ng-container matColumnDef="IsActive">
+        <th class="reset-width" mat-header-cell *matHeaderCellDef mat-sort-header>Is Active</th>
+        <td class="reset-width" mat-cell *matCellDef="let row">{{row.IsActive}}</td>
+      </ng-container>
 
-      <!-- IsActive Column -->
-      <ng-container matColumnDef="IsActive">
-          <th class="reset-width" mat-header-cell *matHeaderCellDef mat-sort-header>Is Active</th>
-          <td class="reset-width" mat-cell *matCellDef="let row">{{row.IsActive}}</td>
-        </ng-container>
-  
-      <!-- Actions Column -->
-    <ng-container matColumnDef="Actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let row">
-        <button mat-raised-button><mat-icon>device_hub</mat-icon>Skills</button>
-        <button mat-raised-button color="primary"><mat-icon>edit</mat-icon>Edit</button>
-        <button mat-raised-button color="warn"><mat-icon>delete</mat-icon>Delete</button>
-      </td>
-    </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  
-    <mat-paginator #paginator
-      [length]="dataSource.data.length"
-      [pageIndex]="0"
-      [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 25, 50, 100, 250]">
-    </mat-paginator>
-  </div>
+    <!-- Actions Column -->
+  <ng-container matColumnDef="Actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let row">
+      <button mat-raised-button><mat-icon>device_hub</mat-icon>Skills</button>
+      <button mat-raised-button color="primary"><mat-icon>edit</mat-icon>Edit</button>
+      <button mat-raised-button color="warn"><mat-icon>delete</mat-icon>Delete</button>
+    </td>
+  </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+    [length]="dataSource.data.length"
+    [pageIndex]="0"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 50, 100, 250]">
+  </mat-paginator>
+</div>

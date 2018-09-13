@@ -28,6 +28,9 @@ import { AdminEmployeeSkillsComponent } from './admin/admin-employee-skills/admi
 import { EmployeesDataTableComponent } from './employees/employees-data-table/employees-data-table.component';
 import { EmployeeService } from './services/employee.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ScoresDataTableComponent } from './scores/scores-data-table/scores-data-table.component';
+import { ScoreService } from './services/score.service';
+import { SkillsDataTableComponent } from './skills/skills-data-table/skills-data-table.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,9 @@ import { HttpClientModule } from '@angular/common/http';
     AdminSkillsComponent,
     AdminScoresComponent,
     AdminEmployeeSkillsComponent,
-    EmployeesDataTableComponent
+    EmployeesDataTableComponent,
+    ScoresDataTableComponent,
+    SkillsDataTableComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +75,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatProgressSpinnerModule,
     HttpClientModule
   ],
-  providers: [EmployeeService],
+  providers: [
+    EmployeeService,
+    ScoreService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
