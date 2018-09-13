@@ -22,19 +22,23 @@ export class EmployeesDataTableComponent implements OnInit {
   displayedColumns = ['FirstName', 'LastName', 'Email', 'IsActive', 'Actions'];
 
   dataSource: MatTableDataSource<Employee>;
+  employees: Employee[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(employeeService: EmployeeService) {
-
-    const employees = employeeService.getEmployees();
+    employeeService.getEmployees().subscribe((result) => {
+      this.employees = result;
+      this.dataSource = new MatTableDataSource(result);
+      console.log(this.employees);
+    });
 
     // Create 100 users
     //const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
 
     // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(employees);
+    //this.dataSource = new MatTableDataSource(this.employees);
   }
   
 

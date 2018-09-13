@@ -16,3 +16,8 @@ width: 100%;
 td, th {
 width: 25%;
 }
+
+.reset-width
+{
+    width: 10%;
+}

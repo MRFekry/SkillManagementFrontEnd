@@ -10,15 +10,10 @@ export class EmployeeService {
 
   constructor(private httPservice: HttpClient) { }
 
-  getEmployees() : Employee[] {
+  getEmployees() : Observable<Employee[]> {
     // let result = this.httPservice.get('http://localhost:52408/employees');
     // return result.subscribe((response) => response.);
 
-    let result;
-
-    this.httPservice.get<Employee[]>('http://localhost:52408/employees')
-    .subscribe((employees) => result = employees);
-
-    return result;
+    return this.httPservice.get<Employee[]>('http://localhost:52408/employees');
   }
 }
