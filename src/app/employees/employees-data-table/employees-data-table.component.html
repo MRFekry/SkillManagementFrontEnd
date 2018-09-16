@@ -32,10 +32,10 @@
       </ng-container>
 
     <!-- IsActive Column -->
-    <ng-container matColumnDef="IsActive">
+    <!-- <ng-container matColumnDef="IsActive">
         <th class="reset-width" mat-header-cell *matHeaderCellDef mat-sort-header>Is Active</th>
         <td class="reset-width" mat-cell *matCellDef="let row">{{row.IsActive}}</td>
-      </ng-container>
+      </ng-container> -->
 
     <!-- Actions Column -->
   <ng-container matColumnDef="Actions">
@@ -63,7 +63,7 @@
   <h1>Delete Confirmation !</h1>
   <p>Are you sure you want to delete the following employee ?! </p>
   <!-- <input type="text" [(ngModel)]="bodyText" /></p> -->
-  <form #f="ngForm" (ngSubmit)="Yes(f.value)">
+  <form #f="ngForm" (ngSubmit)="DeleteEmployee(f.value, 'custom-modal-1')">
     <div class="form-group">
       <label for="FirstName">First Name: </label>
       <input #FirstName="ngModel" [(ngModel)]="employee.FirstName" name="FirstName" id="FirstName" type="text" class="form-control" style="width: 30%" disabled>

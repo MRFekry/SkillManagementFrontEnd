@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { EmployeeService } from './../../services/employee.service';
 import {Component, OnInit, ViewChild, ChangeDetectorRef} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
@@ -11,7 +12,7 @@ import { ModalService } from '../../services/modal.service';
 })
 export class EmployeesDataTableComponent implements OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['FirstName', 'LastName', 'Email', 'IsActive', 'Actions'];
+  displayedColumns = ['FirstName', 'LastName', 'Email', 'Actions'];
 
   dataSource: MatTableDataSource<Employee>;
   employees: Employee[];
@@ -50,12 +51,13 @@ export class EmployeesDataTableComponent implements OnInit {
   }
 
   openModal(id: string, row: Employee) {
-    let emp: Employee;
-    emp.Id = row.Id;
-    emp.FirstName = row.FirstName;
-    emp.LastName = row.LastName;
-    emp.Email = row.Email;
-    emp.IsActive = row.IsActive;
+    let emp: Employee = {
+      Id : row.Id,
+      FirstName : row.FirstName,
+      LastName : row.LastName,
+      Email : row.Email,
+      IsActive : row.IsActive,
+    }
     this.employee = emp;
 
     this.modalService.open(id);
@@ -65,13 +67,9 @@ export class EmployeesDataTableComponent implements OnInit {
     this.modalService.close(id);
   }
 
-  DeleteEmployee(employee){
-    let emp: Employee;
-    emp.Id = employee.Id;
-    emp.FirstName = employee.FirstName;
-    emp.LastName = employee.LastName;
-    emp.Email = employee.Email;
-    emp.IsActive = employee.IsActive;
-    this.employeeService.DeleteEmployee(emp);
+  DeleteEmployee(employee, id: string){
+    this.employeeService.DeleteEmployee(this.employee);
+
+    this.closeModal(id);
   }
 }

@@ -25,7 +25,6 @@ export class EmployeesComponent implements OnInit {
 
   save(employee)
   {
-    console.log(employee);
     if (this.id) this.employeeService.UpdateEmployee(this.id, employee).subscribe();
     else this.employeeService.AddNewEmployee(employee).subscribe();
 

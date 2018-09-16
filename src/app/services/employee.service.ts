@@ -34,6 +34,6 @@ export class EmployeeService {
 
   DeleteEmployee(employee: any){
     const headers = new HttpHeaders().set('content-type', 'application/json');
-    this.httPservice.delete<Employee>(this._baseUrl + "employee/" + employee, {headers}).subscribe();
+    this.httPservice.post<Employee>(this._baseUrl + "employee/" + employee, employee, {headers}).subscribe();
   }
 }
