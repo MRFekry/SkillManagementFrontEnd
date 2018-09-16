@@ -14,21 +14,22 @@ export class SkillsDataTableComponent implements OnInit {
 
   dataSource: MatTableDataSource<Skill>;
   Skills: Skill[];
+  dataSourceLength: number;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(Skillservice: SkillService) {
-    Skillservice.getSkills().subscribe((result) => {
-      this.Skills = result;
-      this.dataSource = new MatTableDataSource(result);
-      console.log(this.Skills);
-    });
-  }  
+  constructor(private Skillservice: SkillService) {  }  
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+
+    this.Skillservice.getSkills().subscribe((result) => {
+      this.Skills = result;
+      this.dataSource = new MatTableDataSource(result);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.dataSourceLength = this.dataSource.data.length;
+    });
   }
 
   applyFilter(filterValue: string) {

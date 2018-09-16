@@ -1,6 +1,6 @@
 import { Employee } from './../Interfaces/Employee';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,12 +8,20 @@ import { Observable } from 'rxjs';
 })
 export class EmployeeService {
 
+  private readonly _baseUrl: string = 'http://localhost:52408/';
+
   constructor(private httPservice: HttpClient) { }
 
   getEmployees() : Observable<Employee[]> {
-    // let result = this.httPservice.get('http://localhost:52408/employees');
-    // return result.subscribe((response) => response.);
+    return this.httPservice.get<Employee[]>(this._baseUrl + "employees");
+  }
 
-    return this.httPservice.get<Employee[]>('http://localhost:52408/employees');
+  getEmployeeById(id){
+    return this.httPservice.get<Employee>(this._baseUrl + "employee/{Id}");
+  }
+
+  AddNewEmployee(employee: Employee){
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+    return this.httPservice.post<Employee>(this._baseUrl + "employees", employee, {headers});
   }
 }

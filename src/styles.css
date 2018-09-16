@@ -3,3 +3,9 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Roboto', sans-serif; }
+
+.margin-to-center 
+{
+    width: 80%;
+    margin: 20px auto;
+}

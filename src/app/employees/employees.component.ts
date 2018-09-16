@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { EmployeeService } from '../services/employee.service';
+import { ActivatedRoute } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-employees',
@@ -7,9 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeesComponent implements OnInit {
 
-  constructor() { }
+  employee = {};
+  id;
+
+  constructor(private employeeService: EmployeeService, private route: ActivatedRoute) {
+    this.id = this.route.snapshot.paramMap.get('id');
+    if (this.id) this.employeeService.getEmployeeById(this.id).pipe(take(1)).subscribe(emp => this.employee = emp);
+   }
 
   ngOnInit() {
+  }
+
+  save(employee)
+  {
+    this.employeeService.AddNewEmployee(employee).subscribe((response) => {
+      console.log(response);
+    });
   }
 
 }

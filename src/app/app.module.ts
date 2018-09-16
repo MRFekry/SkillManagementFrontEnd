@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,10 +22,6 @@ import { EmployeesComponent } from './employees/employees.component';
 import { SkillsComponent } from './skills/skills.component';
 import { ScoresComponent } from './scores/scores.component';
 import { EmployeeSkillsComponent } from './employee-skills/employee-skills.component';
-import { AdminEmployeesComponent } from './admin/admin-employees/admin-employees.component';
-import { AdminSkillsComponent } from './admin/admin-skills/admin-skills.component';
-import { AdminScoresComponent } from './admin/admin-scores/admin-scores.component';
-import { AdminEmployeeSkillsComponent } from './admin/admin-employee-skills/admin-employee-skills.component';
 import { EmployeesDataTableComponent } from './employees/employees-data-table/employees-data-table.component';
 import { EmployeeService } from './services/employee.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -40,10 +37,6 @@ import { SkillsDataTableComponent } from './skills/skills-data-table/skills-data
     SkillsComponent,
     ScoresComponent,
     EmployeeSkillsComponent,
-    AdminEmployeesComponent,
-    AdminSkillsComponent,
-    AdminScoresComponent,
-    AdminEmployeeSkillsComponent,
     EmployeesDataTableComponent,
     ScoresDataTableComponent,
     SkillsDataTableComponent
@@ -58,14 +51,12 @@ import { SkillsDataTableComponent } from './skills/skills-data-table/skills-data
     MatIconModule,
     MatListModule,
     RouterModule.forRoot([
-      { path: '', component: EmployeesComponent },
-      { path: 'skills', component: SkillsComponent },
-      { path: 'scores', component: ScoresComponent },
+      { path: '', component: EmployeesDataTableComponent },
+      { path: 'skills', component: SkillsDataTableComponent },
+      { path: 'scores', component: ScoresDataTableComponent },
       { path: 'employeeSkills', component: EmployeeSkillsComponent },
-      { path: 'admin/employee', component: AdminEmployeesComponent },
-      { path: 'admin/skill', component: AdminSkillsComponent },
-      { path: 'admin/score', component: AdminScoresComponent },
-      { path: 'admin/employeeSkill', component: AdminEmployeeSkillsComponent }
+      { path: 'employee/new', component: EmployeesComponent },
+      { path: 'employee/:id', component: EmployeesComponent },
     ]),
     MatTableModule,
     MatPaginatorModule,
@@ -73,7 +64,8 @@ import { SkillsDataTableComponent } from './skills/skills-data-table/skills-data
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     EmployeeService,

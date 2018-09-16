@@ -14,21 +14,24 @@ export class ScoresDataTableComponent implements OnInit {
 
   dataSource: MatTableDataSource<Score>;
   Scores: Score[];
+  dataSourceLength: number;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(Scoreservice: ScoreService) {
-    Scoreservice.getScores().subscribe((result) => {
-      this.Scores = result;
-      this.dataSource = new MatTableDataSource(result);
-      console.log(this.Scores);
-    });
-  }  
+  constructor(private Scoreservice: ScoreService) {  }  
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+
+    this.Scoreservice.getScores().subscribe((result) => {
+      this.Scores = result;
+      this.dataSource = new MatTableDataSource(result);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.dataSourceLength = this.dataSource.data.length;
+    });
+
+    
   }
 
   applyFilter(filterValue: string) {
