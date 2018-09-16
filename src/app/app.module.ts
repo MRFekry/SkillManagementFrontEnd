@@ -1,3 +1,4 @@
+import { ModalService } from './services/modal.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -28,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ScoresDataTableComponent } from './scores/scores-data-table/scores-data-table.component';
 import { ScoreService } from './services/score.service';
 import { SkillsDataTableComponent } from './skills/skills-data-table/skills-data-table.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { SkillsDataTableComponent } from './skills/skills-data-table/skills-data
     EmployeeSkillsComponent,
     EmployeesDataTableComponent,
     ScoresDataTableComponent,
-    SkillsDataTableComponent
+    SkillsDataTableComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +72,8 @@ import { SkillsDataTableComponent } from './skills/skills-data-table/skills-data
   ],
   providers: [
     EmployeeService,
-    ScoreService
+    ScoreService,
+    ModalService
   ],
   bootstrap: [AppComponent]
 })
