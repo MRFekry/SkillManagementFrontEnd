@@ -12,10 +12,15 @@ export class SkillsComponent implements OnInit {
 
   skill = {};
   id;
+  skillParentCategories;
 
   constructor(private skillService: SkillService,
     private route: ActivatedRoute,
     private router: Router) {
+      
+      skillService.getSkillParentCategories().subscribe(s => {
+        this.skillParentCategories = s;
+      });
       this.id = this.route.snapshot.paramMap.get('id');
       if (this.id) this.skillService.getSkillById(this.id).pipe(take(1)).subscribe(s => this.skill = s);
    }

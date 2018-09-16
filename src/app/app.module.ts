@@ -30,6 +30,8 @@ import { ScoresDataTableComponent } from './scores/scores-data-table/scores-data
 import { ScoreService } from './services/score.service';
 import { SkillsDataTableComponent } from './skills/skills-data-table/skills-data-table.component';
 import { ModalComponent } from './modal/modal.component';
+import { AccordionGroupComponent } from './accordion-group/accordion-group.component';
+import { AccordionComponent } from './accordion/accordion.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { ModalComponent } from './modal/modal.component';
     EmployeesDataTableComponent,
     ScoresDataTableComponent,
     SkillsDataTableComponent,
-    ModalComponent
+    ModalComponent,
+    AccordionGroupComponent,
+    AccordionComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,6 +68,8 @@ import { ModalComponent } from './modal/modal.component';
       { path: 'skill/:id', component: SkillsComponent },
       { path: 'score/new', component: ScoresComponent },
       { path: 'score/:id', component: ScoresComponent },
+      { path: 'employeeSkill/new', component: EmployeeSkillsComponent },
+      { path: 'employeeSkill/:id', component: EmployeeSkillsComponent },
     ]),
     MatTableModule,
     MatPaginatorModule,

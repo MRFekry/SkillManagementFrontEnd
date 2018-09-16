@@ -17,13 +17,18 @@ export class SkillsDataTableComponent implements OnInit {
   skills: Skill[];
   dataSourceLength: number;
   skill = {};
+  skillParentCategories: Skill[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private skillService: SkillService,
      private changeDetectorRefs: ChangeDetectorRef,
-     private modalService: ModalService) {  }
+     private modalService: ModalService) { 
+      skillService.getSkillParentCategories().subscribe(s => {
+        this.skillParentCategories = s;
+      });
+    }
 
   ngOnInit() {
     this.refresh();
@@ -39,6 +44,11 @@ export class SkillsDataTableComponent implements OnInit {
       this.changeDetectorRefs.detectChanges();
     });
 
+  }
+
+  getParentNameById(id){
+    let item = this.skillParentCategories.filter(s => s.Id === id);
+    return item[0].Name;
   }
 
   applyFilter(filterValue: string) {

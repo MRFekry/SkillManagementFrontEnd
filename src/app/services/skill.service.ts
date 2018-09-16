@@ -35,4 +35,8 @@ export class SkillService {
     const headers = new HttpHeaders().set('content-type', 'application/json');
     this.httPservice.post<Skill>(this._baseUrl + "skill/" + skill, skill, {headers}).subscribe();
   }
+
+  getSkillParentCategories(){
+    return this.httPservice.get<Skill[]>(this._baseUrl + "skillParentCategories");
+  }
 }
