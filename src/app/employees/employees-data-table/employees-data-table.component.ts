@@ -1,9 +1,12 @@
-import { map } from 'rxjs/operators';
+import { EmployeeSkillsScores } from './../../Interfaces/EmployeeSkillsScores';
+import { EmployeeSkillService } from './../../services/employee-skill.service';
+import { EmployeeSkill } from './../../Interfaces/EmployeeSkill';
 import { EmployeeService } from './../../services/employee.service';
 import {Component, OnInit, ViewChild, ChangeDetectorRef} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import { Employee } from '../../Interfaces/Employee';
 import { ModalService } from '../../services/modal.service';
+import { asEnumerable } from 'linq-es2015';
 
 @Component({
   selector: 'employees-data-table',
@@ -18,13 +21,16 @@ export class EmployeesDataTableComponent implements OnInit {
   employees: Employee[];
   dataSourceLength: number;
   employee = {};
+  employeeSkills$: EmployeeSkillsScores[];
+  skillCategories;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private employeeService: EmployeeService,
-     private changeDetectorRefs: ChangeDetectorRef,
-     private modalService: ModalService) {  }
+    private employeeSkillService: EmployeeSkillService,
+    private changeDetectorRefs: ChangeDetectorRef,
+    private modalService: ModalService) {  }
 
   ngOnInit() {
     this.refresh();
@@ -39,7 +45,6 @@ export class EmployeesDataTableComponent implements OnInit {
       this.dataSourceLength = this.dataSource.data.length;
       this.changeDetectorRefs.detectChanges();
     });
-
   }
 
   applyFilter(filterValue: string) {
@@ -60,6 +65,14 @@ export class EmployeesDataTableComponent implements OnInit {
     }
     this.employee = emp;
 
+    if((this.employee as Employee).Id){
+      this.employeeSkillService.getEmployeeSkills((this.employee as Employee).Id).subscribe(result => {
+        this.skillCategories = asEnumerable(result).Distinct(d => d.SkillCategoryName);
+        this.employeeSkills$ = result;
+        this.changeDetectorRefs.detectChanges();
+      });
+    }
+
     this.modalService.open(id);
   }
 
@@ -71,5 +84,11 @@ export class EmployeesDataTableComponent implements OnInit {
     this.employeeService.DeleteEmployee(this.employee);
 
     this.closeModal(id);
+  }
+
+  getEmployeeSkillsPerCategory(skillCategoryName: string){
+    if(this.employeeSkills$){
+      return asEnumerable(this.employeeSkills$).Where(s => s.SkillCategoryName === skillCategoryName);
+    }
   }
 }

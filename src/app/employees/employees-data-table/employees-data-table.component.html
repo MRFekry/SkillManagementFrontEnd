@@ -100,7 +100,7 @@
   <br>
   <div>
     <app-accordion>
-      <app-accordion-group [title]="u.label" *ngFor="let u of users">
+      <app-accordion-group [title]="s.SkillCategoryName" *ngFor="let s of skillCategories">
         <table class="table table-striped">
           <thead>
             <tr>
@@ -110,10 +110,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let u of users">
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
+            <tr *ngFor="let es of getEmployeeSkillsPerCategory(s.SkillCategoryName)">
+              <td>{{ es.SkillName }}</td>
+              <td>{{ es.ScoreName }}</td>
+              <td>{{ es.Score }}</td>
             </tr>
           </tbody>
         </table>
@@ -122,5 +122,5 @@
   </div>
   <br>
 
-  <button (click)="closeModal('custom-modal-1');" type="button" class="btn btn-danger">Cancel</button>
+  <button (click)="closeModal('custom-modal-2');" type="button" class="btn btn-danger">Cancel</button>
 </jw-modal>

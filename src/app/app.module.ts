@@ -32,6 +32,7 @@ import { SkillsDataTableComponent } from './skills/skills-data-table/skills-data
 import { ModalComponent } from './modal/modal.component';
 import { AccordionGroupComponent } from './accordion-group/accordion-group.component';
 import { AccordionComponent } from './accordion/accordion.component';
+import { EmployeeSkillService } from './services/employee-skill.service';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { AccordionComponent } from './accordion/accordion.component';
   ],
   providers: [
     EmployeeService,
+    EmployeeSkillService,
     ScoreService,
     ModalService
   ],

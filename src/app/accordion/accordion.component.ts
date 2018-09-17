@@ -15,21 +15,24 @@ export class AccordionComponent implements AfterContentInit {
    * Invoked when all children (groups) are ready
    */
   ngAfterContentInit() {
-    // console.log (this.groups);
-    // Set active to first element
-    this.groups.toArray()[0].opened = true;
-    // Loop through all Groups
-    this.groups.toArray().forEach((t) => {
-      // when title bar is clicked
-      // (toggle is an @output event of Group)
-      t.toggle.subscribe(() => {
-        // Open the group
-        this.openGroup(t);
+    //console.log (this.groups);
+    
+    this.groups.changes.subscribe(() => {
+      // Set active to first element
+      this.groups.toArray()[0].opened = true;
+      // Loop through all Groups
+      this.groups.toArray().forEach((t) => {
+        // when title bar is clicked
+        // (toggle is an @output event of Group)
+        t.toggle.subscribe(() => {
+          // Open the group
+          this.openGroup(t);
+        });
+        /*t.toggle.subscribe((group) => {
+          // Open the group
+          this.openGroup(group);
+        });*/
       });
-      /*t.toggle.subscribe((group) => {
-        // Open the group
-        this.openGroup(group);
-      });*/
     });
   }
 
