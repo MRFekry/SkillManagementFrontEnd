@@ -7,6 +7,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import { Employee } from '../../Interfaces/Employee';
 import { ModalService } from '../../services/modal.service';
 import { asEnumerable } from 'linq-es2015';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'employees-data-table',
@@ -23,6 +24,7 @@ export class EmployeesDataTableComponent implements OnInit {
   employee = {};
   employeeSkills$: EmployeeSkillsScores[];
   skillCategories;
+  employeeSkillId;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -30,7 +32,8 @@ export class EmployeesDataTableComponent implements OnInit {
   constructor(private employeeService: EmployeeService,
     private employeeSkillService: EmployeeSkillService,
     private changeDetectorRefs: ChangeDetectorRef,
-    private modalService: ModalService) {  }
+    private modalService: ModalService,
+    private router: Router) {  }
 
   ngOnInit() {
     this.refresh();
@@ -56,14 +59,16 @@ export class EmployeesDataTableComponent implements OnInit {
   }
 
   openModal(id: string, row: Employee) {
-    let emp: Employee = {
-      Id : row.Id,
-      FirstName : row.FirstName,
-      LastName : row.LastName,
-      Email : row.Email,
-      IsActive : row.IsActive,
+    if(row){
+      let emp: Employee = {
+        Id : row.Id,
+        FirstName : row.FirstName,
+        LastName : row.LastName,
+        Email : row.Email,
+        IsActive : row.IsActive,
+      }
+      this.employee = emp;
     }
-    this.employee = emp;
 
     if((this.employee as Employee).Id){
       this.employeeSkillService.getEmployeeSkills((this.employee as Employee).Id).subscribe(result => {
@@ -90,5 +95,22 @@ export class EmployeesDataTableComponent implements OnInit {
     if(this.employeeSkills$){
       return asEnumerable(this.employeeSkills$).Where(s => s.SkillCategoryName === skillCategoryName);
     }
+  }
+
+  removeSkill(id:number, modalToCloseId:string, modalToOpenId:string){
+    this.closeModal(modalToCloseId);
+    this.openModal(modalToOpenId, null);
+    this.employeeSkillId = id;
+  }
+
+  DeleteEmployeeSkill(){
+    let empSkill = asEnumerable(this.employeeSkills$).Where(s => s.EmployeeSkillId === this.employeeSkillId);
+    this.employeeSkillService.DeleteEmployeeSkill(empSkill);
+
+    this.router.navigate(['/']);
+  }
+
+  EditEmployeeSkill(Id,employeeId, employeeFirstName, employeeLastName, employeeEmail){
+    this.router.navigate(['/employeeSkill', Id, employeeId, employeeFirstName, employeeLastName, employeeEmail]);
   }
 }

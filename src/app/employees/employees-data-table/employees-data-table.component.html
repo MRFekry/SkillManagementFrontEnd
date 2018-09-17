@@ -94,7 +94,7 @@
   </div>
 
   <br>
-  <button mat-raised-button color="primary" routerLink="/employeeSkill/new"><mat-icon>add_box</mat-icon>  Add New Employee Skill </button>
+  <button mat-raised-button color="primary" [routerLink]="['/employeeSkill/new', employee.Id, employee.FirstName, employee.LastName, employee.Email]"><mat-icon>add_box</mat-icon>  Add New Employee Skill </button>
   <br>
 
   <br>
@@ -107,6 +107,7 @@
               <th scope="col">Skill Name</th>
               <th scope="col">Score Name</th>
               <th scope="col">Score</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -114,6 +115,10 @@
               <td>{{ es.SkillName }}</td>
               <td>{{ es.ScoreName }}</td>
               <td>{{ es.Score }}</td>
+              <td>
+                <button mat-raised-button color="primary" (click)="EditEmployeeSkill(es.EmployeeSkillId, employee.Id, employee.FirstName, employee.LastName, employee.Email)"><mat-icon>edit</mat-icon>Edit</button>
+                <button style="margin-left: 5px;" mat-raised-button color="warn" (click)="removeSkill(es.Id, 'custom-modal-2', 'custom-modal-3')"><mat-icon>delete</mat-icon>Delete</button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -123,4 +128,18 @@
   <br>
 
   <button (click)="closeModal('custom-modal-2');" type="button" class="btn btn-danger">Cancel</button>
+</jw-modal>
+
+<jw-modal id="custom-modal-3">
+  <h1>Delete Confirmation !</h1>
+  <p>Are you sure you want to delete this skill ?! </p>
+
+  <br>
+  <br>
+  <br>
+
+  <div style="padding-left: 15%; width: 30%">
+    <button class="btn btn-primary" id="yesBtn" (click)="DeleteEmployeeSkill()">Yes</button>   
+    <button (click)="closeModal('custom-modal-3'); openModal('custom-modal-2', null);" type="button" class="btn btn-danger" style="margin-left: 10px;">Cancel</button>
+  </div>
 </jw-modal>

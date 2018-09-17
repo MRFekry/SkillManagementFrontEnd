@@ -23,7 +23,7 @@ export class EmployeeSkillService {
 
   AddNewEmployeeSkill(employeeSkill: EmployeeSkill){
     const headers = new HttpHeaders().set('content-type', 'application/json');
-    return this.httPservice.post<EmployeeSkill>(this._baseUrl + "employee/skill", employeeSkill, {headers});
+    return this.httPservice.post<EmployeeSkill>(this._baseUrl + "employee/skill/new", employeeSkill, {headers});
   }
 
   UpdateEmployeeSkill(id: number, employeeSkill: any){
