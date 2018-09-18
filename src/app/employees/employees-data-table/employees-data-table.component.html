@@ -117,7 +117,7 @@
               <td>{{ es.Score }}</td>
               <td>
                 <button mat-raised-button color="primary" (click)="EditEmployeeSkill(es.EmployeeSkillId, employee.Id, employee.FirstName, employee.LastName, employee.Email)"><mat-icon>edit</mat-icon>Edit</button>
-                <button style="margin-left: 5px;" mat-raised-button color="warn" (click)="removeSkill(es.Id, 'custom-modal-2', 'custom-modal-3')"><mat-icon>delete</mat-icon>Delete</button>
+                <button style="margin-left: 5px;" mat-raised-button color="warn" (click)="removeSkill(es.EmployeeSkillId, 'custom-modal-2', 'custom-modal-3')"><mat-icon>delete</mat-icon>Delete</button>
               </td>
             </tr>
           </tbody>

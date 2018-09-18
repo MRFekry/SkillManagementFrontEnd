@@ -32,8 +32,8 @@ export class EmployeeSkillService {
     return this.httPservice.put<EmployeeSkill>(this._baseUrl + "employee/skill/" + employeeSkill, employeeSkill, {headers});
   }
 
-  DeleteEmployeeSkill(employeeSkill: any){
+  DeleteEmployeeSkill(employeeSkillId: any){
     const headers = new HttpHeaders().set('content-type', 'application/json');
-    this.httPservice.post<EmployeeSkill>(this._baseUrl + "employee/skill/" + employeeSkill, employeeSkill, {headers}).subscribe();
+    this.httPservice.get(this._baseUrl + "employee/skill/delete/" + employeeSkillId);
   }
 }

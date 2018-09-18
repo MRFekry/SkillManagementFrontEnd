@@ -101,11 +101,12 @@ export class EmployeesDataTableComponent implements OnInit {
     this.closeModal(modalToCloseId);
     this.openModal(modalToOpenId, null);
     this.employeeSkillId = id;
+    console.log(this.employeeSkillId);
   }
 
   DeleteEmployeeSkill(){
-    let empSkill = asEnumerable(this.employeeSkills$).Where(s => s.EmployeeSkillId === this.employeeSkillId);
-    this.employeeSkillService.DeleteEmployeeSkill(empSkill);
+    let empSkill = asEnumerable(this.employeeSkills$).Where(s => s.EmployeeSkillId === this.employeeSkillId).FirstOrDefault();
+    this.employeeSkillService.DeleteEmployeeSkill(this.employeeSkillId);
 
     this.router.navigate(['/']);
   }

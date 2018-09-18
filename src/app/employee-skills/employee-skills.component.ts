@@ -51,10 +51,12 @@ export class EmployeeSkillsComponent implements OnInit {
 
   save(employeeSkill)
   {
+    console.log(employeeSkill);
+
     let empskill = {} as EmployeeSkill;
     empskill.Employee_Id = this.employeeId;
-    empskill.Skill_Id = employeeSkill.Skill;
-    empskill.Score_Id = employeeSkill.Score;
+    empskill.Skill_Id = employeeSkill.Skill_Id;
+    empskill.Score_Id = employeeSkill.Score_Id;
 
     if (this.id) this.employeeSkillService.UpdateEmployeeSkill(this.id, empskill).subscribe();
     else this.employeeSkillService.AddNewEmployeeSkill(empskill).subscribe();
