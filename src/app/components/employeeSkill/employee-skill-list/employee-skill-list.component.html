@@ -1,0 +1,42 @@
+<h1>Employee Skills</h1>
+<div>
+  <label><h4>{{employee.FirstName}} {{employee.LastName}}</h4></label>
+  <label style="margin-left: 50px;"><h4>{{employee.Email}}</h4></label>
+</div>
+
+<br>
+<!-- <button mat-raised-button color="primary" [routerLink]="['/employeeSkill/new', employee.Id, employee.FirstName, employee.LastName, employee.Email]"><mat-icon>add_box</mat-icon>  Add New Employee Skill </button> -->
+<button mat-raised-button color="primary" (click)="openEmployeeSkillFormDialog(employee, null)"><mat-icon>add_box</mat-icon>  Add New Employee Skill </button>
+<br>
+
+<br>
+<div>
+  <app-accordion>
+    <app-accordion-group [title]="s.SkillCategoryName" *ngFor="let s of skillCategories">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Skill Name</th>
+            <th scope="col">Score Name</th>
+            <th scope="col">Score</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let es of getEmployeeSkillsPerCategory(s.SkillCategoryName)">
+            <td>{{ es.SkillName }}</td>
+            <td>{{ es.ScoreName }}</td>
+            <td>{{ es.Score }}</td>
+            <td>
+              <!-- <button mat-raised-button color="primary" (click)="EditEmployeeSkill(es.EmployeeSkillId, employee.Id, employee.FirstName, employee.LastName, employee.Email)"><mat-icon>edit</mat-icon>Edit</button> -->
+              <button mat-raised-button color="primary" (click)="openEmployeeSkillFormDialog(employee, es)"><mat-icon>edit</mat-icon>Edit</button>              
+              <!-- <button style="margin-left: 5px;" mat-raised-button color="warn" (click)="removeSkill(es.EmployeeSkillId, 'custom-modal-2', 'custom-modal-3')"><mat-icon>delete</mat-icon>Delete</button> -->
+              <button style="margin-left: 5px;" mat-raised-button color="warn" (click)="openEmployeeSkillDeleteConfirmationDialog(employee, es)"><mat-icon>delete</mat-icon>Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </app-accordion-group>
+  </app-accordion>
+</div>
+<br>

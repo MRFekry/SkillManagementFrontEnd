@@ -1,0 +1,48 @@
+<div class="data-table">
+    <br>
+    <button mat-raised-button color="primary" (click)="openSkillFormDialog(null)"><mat-icon>add_box</mat-icon>  Add New Skill</button>
+    <br>
+    
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Type to search ...">
+    </mat-form-field>
+  </div>
+  
+    
+  <div class="mat-elevation-z8 data-table">
+    
+    <table mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="Name">
+        <th class="reset-width" mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td class="reset-width" mat-cell *matCellDef="let row">{{row.Name}}</td>
+      </ng-container>
+  
+      <!-- SkillParentCategory_Id Column -->
+      <ng-container matColumnDef="SkillParentCategory_Id">
+        <th class="reset-width" mat-header-cell *matHeaderCellDef mat-sort-header>Skill Parent Category</th>
+        <!-- <td class="reset-width" mat-cell *matCellDef="let row">{{getParentNameById(row.SkillParentCategory_Id)}}</td> -->
+        <td class="reset-width" mat-cell *matCellDef="let row">{{row.SkillParentCategoryName}}</td>
+      </ng-container>
+        
+      <!-- Actions Column -->
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-raised-button color="primary" (click)="openSkillFormDialog(row)"><mat-icon>edit</mat-icon>Edit</button>
+          <button style="margin-left: 5px;" mat-raised-button color="warn" (click)="openSkillDeleteConfirmationDialog(row)"><mat-icon>delete</mat-icon>Delete</button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator #paginator
+      [length]="dataSourceLength"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 50, 100, 250]">
+    </mat-paginator>
+  </div>

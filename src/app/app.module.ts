@@ -1,91 +1,114 @@
-import { ModalService } from './services/modal.service';
+import { ScoreService } from './services/score/score.service';
+import { SkillService } from './services/skill/skill.service';
+import { EmployeeService } from './services/employee/employee.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule,
+  MatButtonModule,
+  MatSidenavModule,
+  MatIconModule, 
+  MatListModule, 
+  MatTableModule, 
+  MatPaginatorModule, 
+  MatSortModule, 
+  MatFormFieldModule,
+  MatInputModule,
+  MatDialogModule,
+  MatProgressSpinnerModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { ScoreFormComponent } from './components/score/score-form/score-form.component';
+import { SkillFormComponent } from './components/skill/skill-form/skill-form.component';
+import { EmployeeFormComponent } from './components/employee/employee-form/employee-form.component';
+import { EmployeeSkillService } from './services/employeeSkill/employee-skill.service';
+import { EmployeeSkillFormComponent } from './components/employeeSkill/employee-skill-form/employee-skill-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainNavComponent } from './main-nav/main-nav.component';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule, 
-    MatListModule, 
-    MatTableModule, 
-    MatPaginatorModule, 
-    MatSortModule, 
-    MatFormFieldModule,
-    MatInputModule,
-    MatProgressSpinnerModule } from '@angular/material';
-import { EmployeesComponent } from './employees/employees.component';
-import { SkillsComponent } from './skills/skills.component';
-import { ScoresComponent } from './scores/scores.component';
-import { EmployeeSkillsComponent } from './employee-skills/employee-skills.component';
-import { EmployeesDataTableComponent } from './employees/employees-data-table/employees-data-table.component';
-import { EmployeeService } from './services/employee.service';
-import { HttpClientModule } from '@angular/common/http';
-import { ScoresDataTableComponent } from './scores/scores-data-table/scores-data-table.component';
-import { ScoreService } from './services/score.service';
-import { SkillsDataTableComponent } from './skills/skills-data-table/skills-data-table.component';
-import { ModalComponent } from './modal/modal.component';
-import { AccordionGroupComponent } from './accordion-group/accordion-group.component';
+import { EmployeeListComponent } from './components/employee/employee-list/employee-list.component';
+import { SkillListComponent } from './components/skill/skill-list/skill-list.component';
+import { ScoreListComponent } from './components/score/score-list/score-list.component';
 import { AccordionComponent } from './accordion/accordion.component';
-import { EmployeeSkillService } from './services/employee-skill.service';
+import { AccordionGroupComponent } from './accordion-group/accordion-group.component';
+import { EmployeeDeleteConfirmationComponent } from './components/employee/employee-delete-confirmation/employee-delete-confirmation.component';
+import { SkillDeleteConfirmationComponent } from './components/skill/skill-delete-confirmation/skill-delete-confirmation.component';
+import { ScoreDeleteConfirmationComponent } from './components/score/score-delete-confirmation/score-delete-confirmation.component';
+import { EmployeeSkillListComponent } from './components/employeeSkill/employee-skill-list/employee-skill-list.component';
+import { EmployeeSkillDeleteConfirmationComponent } from './components/employeeSkill/employee-skill-delete-confirmation/employee-skill-delete-confirmation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ScoreFormComponent,
+    SkillFormComponent,
+    EmployeeFormComponent,
+    EmployeeSkillFormComponent,
     MainNavComponent,
-    EmployeesComponent,
-    SkillsComponent,
-    ScoresComponent,
-    EmployeeSkillsComponent,
-    EmployeesDataTableComponent,
-    ScoresDataTableComponent,
-    SkillsDataTableComponent,
-    ModalComponent,
-    AccordionGroupComponent,
+    EmployeeListComponent,
+    SkillListComponent,
+    ScoreListComponent,
     AccordionComponent,
+    AccordionGroupComponent,
+    EmployeeDeleteConfirmationComponent,
+    SkillDeleteConfirmationComponent,
+    ScoreDeleteConfirmationComponent,
+    EmployeeSkillListComponent,
+    EmployeeSkillDeleteConfirmationComponent
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
+    HttpClientModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    RouterModule.forRoot([
-      { path: '', component: EmployeesDataTableComponent },
-      { path: 'skills', component: SkillsDataTableComponent },
-      { path: 'scores', component: ScoresDataTableComponent },
-      { path: 'employeeSkills', component: EmployeeSkillsComponent },
-      { path: 'employee/new', component: EmployeesComponent },
-      { path: 'employee/:id', component: EmployeesComponent },
-      { path: 'skill/new', component: SkillsComponent },
-      { path: 'skill/:id', component: SkillsComponent },
-      { path: 'score/new', component: ScoresComponent },
-      { path: 'score/:id', component: ScoresComponent },
-      { path: 'employeeSkill/new/:employeeId/:employeeFirstName/:employeeLastName/:employeeEmail', component: EmployeeSkillsComponent },
-      { path: 'employeeSkill/:Id/:employeeId/:employeeFirstName/:employeeLastName/:employeeEmail', component: EmployeeSkillsComponent },
-    ]),
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    HttpClientModule,
+    MatDialogModule,
+    RouterModule.forRoot([
+      { path: '', component: EmployeeListComponent },
+      { path: 'skills', component: SkillListComponent },
+      { path: 'scores', component: ScoreListComponent },
+      { path: 'employeeSkills', component: EmployeeSkillFormComponent },
+      { path: 'employee/new', component: EmployeeFormComponent },
+      { path: 'employee/:id', component: EmployeeFormComponent },
+      { path: 'skill/new', component: SkillFormComponent },
+      { path: 'skill/:id', component: SkillFormComponent },
+      { path: 'score/new', component: ScoreFormComponent },
+      { path: 'score/:id', component: ScoreFormComponent },
+      { path: 'employeeSkill/new/:employeeId/:employeeFirstName/:employeeLastName/:employeeEmail', component: EmployeeSkillFormComponent },
+      { path: 'employeeSkill/:Id/:employeeId/:employeeFirstName/:employeeLastName/:employeeEmail', component: EmployeeSkillFormComponent },
+    ]),
+    BrowserAnimationsModule,
     FormsModule
   ],
+
+  entryComponents: [
+    EmployeeFormComponent,
+    EmployeeDeleteConfirmationComponent,
+    EmployeeSkillListComponent,
+    EmployeeSkillFormComponent,
+    EmployeeSkillDeleteConfirmationComponent,
+    SkillFormComponent,
+    SkillDeleteConfirmationComponent,
+    ScoreFormComponent,
+    ScoreDeleteConfirmationComponent,
+  ],
+
   providers: [
     EmployeeService,
     EmployeeSkillService,
-    ScoreService,
-    ModalService
+    SkillService,
+    ScoreService
   ],
   bootstrap: [AppComponent]
 })
