@@ -23,21 +23,25 @@ export class SkillService {
 
   AddNewSkill(skill: Skill){
     const headers = new HttpHeaders().set('content-type', 'application/json');
-    return this.httPservice.post<Skill>(this._baseUrl + "skills", skill, {headers});
+    return this.httPservice.post<Skill>(this._baseUrl + "skills", skill, { headers: this.AddHeader() });
   }
 
   UpdateSkill(id: number, skill: any){
     const headers = new HttpHeaders().set('content-type', 'application/json');
     skill.id = id;
-    return this.httPservice.put<Skill>(this._baseUrl + "skill/" + skill, skill, {headers});
+    return this.httPservice.put<Skill>(this._baseUrl + "skill/" + skill, skill, { headers: this.AddHeader() });
   }
 
   DeleteSkill(skill: any){
     const headers = new HttpHeaders().set('content-type', 'application/json');
-    this.httPservice.post<Skill>(this._baseUrl + "skill/" + skill, skill, {headers}).subscribe();
+    this.httPservice.post<Skill>(this._baseUrl + "skill/" + skill, skill, { headers: this.AddHeader() }).subscribe();
   }
 
   getSkillParentCategories(){
     return this.httPservice.get<Skill[]>(this._baseUrl + "skillParentCategories");
+  }
+
+  AddHeader(){
+    return new HttpHeaders().set('content-type', 'application/json');
   }
 }

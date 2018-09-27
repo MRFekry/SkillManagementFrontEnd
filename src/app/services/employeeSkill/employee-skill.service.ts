@@ -22,18 +22,19 @@ export class EmployeeSkillService {
   }
 
   AddNewEmployeeSkill(employeeSkill: EmployeeSkill){
-    const headers = new HttpHeaders().set('content-type', 'application/json');
-    return this.httPservice.post<EmployeeSkill>(this._baseUrl + "employee/skill/new", employeeSkill, {headers});
+    return this.httPservice.post<EmployeeSkill>(this._baseUrl + "employee/skill/new", employeeSkill, { headers: this.AddHeader() });
   }
 
   UpdateEmployeeSkill(id: number, employeeSkill: any){
-    const headers = new HttpHeaders().set('content-type', 'application/json');
     employeeSkill.id = id;
-    return this.httPservice.put<EmployeeSkill>(this._baseUrl + "employee/skill/" + employeeSkill, employeeSkill, {headers});
+    return this.httPservice.put<EmployeeSkill>(this._baseUrl + "employee/skill/" + employeeSkill, employeeSkill, { headers: this.AddHeader() });
   }
 
   DeleteEmployeeSkill(employeeSkill: any){
-    const headers = new HttpHeaders().set('content-type', 'application/json');
-    this.httPservice.post<EmployeeSkill>(this._baseUrl + "employee/skill/delete/" + employeeSkill, employeeSkill, {headers}).subscribe();
+    this.httPservice.post<EmployeeSkill>(this._baseUrl + "employee/skill/delete/" + employeeSkill, employeeSkill, { headers: this.AddHeader() }).subscribe();
+  }
+
+  AddHeader(){
+    return new HttpHeaders().set('content-type', 'application/json');
   }
 }

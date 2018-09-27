@@ -21,18 +21,19 @@ export class EmployeeService {
   }
 
   AddNewEmployee(employee: Employee){
-    const headers = new HttpHeaders().set('content-type', 'application/json');
-    return this.httPservice.post<Employee>(this._baseUrl + "employees", employee, {headers});
+    return this.httPservice.post<Employee>(this._baseUrl + "employees", employee, { headers: this.AddHeader() });
   }
 
   UpdateEmployee(id: number, employee: any){
-    const headers = new HttpHeaders().set('content-type', 'application/json');
     employee.id = id;
-    return this.httPservice.put<Employee>(this._baseUrl + "employee/" + employee, employee, {headers});
+    return this.httPservice.put<Employee>(this._baseUrl + "employee/" + employee, employee, { headers: this.AddHeader() });
   }
 
   DeleteEmployee(employee: any){
-    const headers = new HttpHeaders().set('content-type', 'application/json');
-    this.httPservice.post<Employee>(this._baseUrl + "employee/" + employee, employee, {headers}).subscribe();
+    this.httPservice.post<Employee>(this._baseUrl + "employee/" + employee, employee, { headers: this.AddHeader() }).subscribe();
+  }
+
+  AddHeader(){
+    return new HttpHeaders().set('content-type', 'application/json');
   }
 }

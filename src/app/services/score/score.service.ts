@@ -22,17 +22,21 @@ export class ScoreService {
 
   AddNewScore(score: Score){
     const headers = new HttpHeaders().set('content-type', 'application/json');
-    return this.httPservice.post<Score>(this._baseUrl + "scores", score, {headers});
+    return this.httPservice.post<Score>(this._baseUrl + "scores", score, { headers: this.AddHeader() });
   }
 
   UpdateScore(id: number, score: any){
     const headers = new HttpHeaders().set('content-type', 'application/json');
     score.id = id;
-    return this.httPservice.put<Score>(this._baseUrl + "score/" + score, score, {headers});
+    return this.httPservice.put<Score>(this._baseUrl + "score/" + score, score, { headers: this.AddHeader() });
   }
 
   DeleteScore(score: any){
     const headers = new HttpHeaders().set('content-type', 'application/json');
-    this.httPservice.post<Score>(this._baseUrl + "score/" + score, score, {headers}).subscribe();
+    this.httPservice.post<Score>(this._baseUrl + "score/" + score, score, { headers: this.AddHeader() }).subscribe();
+  }
+
+  AddHeader(){
+    return new HttpHeaders().set('content-type', 'application/json');
   }
 }
