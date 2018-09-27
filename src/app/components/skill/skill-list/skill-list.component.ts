@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialog, MatDialogRef } from '@angular/material';
 import { SkillService } from '../../../services/skill/skill.service';
 import { Skill } from '../../../Models/Skill';
 import { SkillFormComponent } from '../skill-form/skill-form.component';
@@ -64,15 +64,21 @@ export class SkillListComponent implements OnInit {
       data: skill
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log(result);
-    // });
+    this.refreshAfterClosingDialog(dialogRef);
   }
 
   openSkillDeleteConfirmationDialog(skill: Skill): void {
     const dialogRef = this.dialog.open(SkillDeleteConfirmationComponent, {
       width: '40%',
       data: skill
+    });
+
+    this.refreshAfterClosingDialog(dialogRef);
+  }
+
+  refreshAfterClosingDialog(dialogRef: MatDialogRef<any, any>){
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
     });
   }
 }

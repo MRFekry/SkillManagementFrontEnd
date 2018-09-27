@@ -29,7 +29,7 @@ describe('EmployeeListComponent', () => {
 
     spyOn(<any>EmployeeService, 'getEmployees').and.returnValue(arr);
 
-    component.refresh();
+    component.ngOnInit();
 
     expect(arr.length).toBeGreaterThan(0);
     expect(arr).toEqual([1, 2, 3]);

@@ -29,6 +29,10 @@ export class EmployeeSkillListComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.refresh();
+  }
+
+  refresh(){
     if(this.data){ 
       this.employee = this.data;
       this.employeeSkillService.getEmployeeSkills((this.employee as Employee).Id).subscribe(result => {
@@ -49,12 +53,22 @@ export class EmployeeSkillListComponent implements OnInit {
       width: '60%',
       data: { employee, employeeSkill }
     });
+
+    this.refreshAfterClosingDialog(dialogRef);
   }
 
   openEmployeeSkillDeleteConfirmationDialog(employee: Employee, employeeSkill: EmployeeSkill){
     const dialogRef = this.dialog.open(EmployeeSkillDeleteConfirmationComponent, {
       width: '40%',
       data: { employee, employeeSkill }
+    });
+
+    this.refreshAfterClosingDialog(dialogRef);
+  }
+
+  refreshAfterClosingDialog(dialogRef: MatDialogRef<any, any>){
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
     });
   }
 

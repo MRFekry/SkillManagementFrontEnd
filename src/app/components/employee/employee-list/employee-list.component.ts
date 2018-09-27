@@ -1,14 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Component, OnInit, ViewChild, ChangeDetectorRef  } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialogRef } from '@angular/material';
 import { EmployeeService } from '../../../services/employee/employee.service';
 import { Employee } from '../../../Models/Employee';
-import { EmployeeSkillsScores } from '../../../Models/EmployeeSkillsScores';
-import { EmployeeSkillService } from '../../../services/employeeSkill/employee-skill.service';
-import { Router } from '@angular/router';
-import { asEnumerable } from 'linq-es2015';
 import { MatDialog } from '@angular/material';
 import { EmployeeFormComponent } from '../employee-form/employee-form.component';
-import { EmployeeSkillFormComponent } from '../../employeeSkill/employee-skill-form/employee-skill-form.component';
 import { EmployeeSkillListComponent } from '../../employeeSkill/employee-skill-list/employee-skill-list.component';
 import { EmployeeDeleteConfirmationComponent } from '../employee-delete-confirmation/employee-delete-confirmation.component';
 
@@ -30,19 +25,21 @@ export class EmployeeListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private employeeService: EmployeeService,
-    public dialog: MatDialog) {  }
+    public dialog: MatDialog, 
+    private changeDetectorRefs: ChangeDetectorRef) {  }
 
   ngOnInit() {
     this.refresh();
   }
 
-  refresh() {
+  refresh(){
     this.employeeService.getEmployees().subscribe(result => {
       this.employees = result;
       this.dataSource = new MatTableDataSource(result);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.dataSourceLength = this.dataSource.data.length;
+      this.changeDetectorRefs.detectChanges();
     });
   }
 
@@ -55,14 +52,12 @@ export class EmployeeListComponent implements OnInit {
   }
 
   openEmployeeSkillsDialog(employee: Employee): void {
-    const dialRef = this.dialog.open(EmployeeSkillListComponent, {
+    const dialogRef = this.dialog.open(EmployeeSkillListComponent, {
       width: '80%',
       data: employee
     });
 
-    // dialRef.afterClosed().subscribe(result => {
-    //   console.log(result);
-    // });
+    this.refreshAfterClosingDialog(dialogRef);
   }
 
   openEmployeeFormDialog(employee: Employee): void {
@@ -71,15 +66,21 @@ export class EmployeeListComponent implements OnInit {
       data: employee
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log(result);
-    // });
+    this.refreshAfterClosingDialog(dialogRef);
   }
 
   openEmployeeDeleteConfirmationDialog(employee: Employee): void {
     const dialogRef = this.dialog.open(EmployeeDeleteConfirmationComponent, {
       width: '40%',
       data: employee
+    });
+
+    this.refreshAfterClosingDialog(dialogRef);
+  }
+
+  refreshAfterClosingDialog(dialogRef: MatDialogRef<any, any>){
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
     });
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialog, MatDialogRef } from '@angular/material';
 import { Score } from '../../../Models/Score';
 import { ScoreService } from '../../../services/score/score.service';
 import { ScoreFormComponent } from '../score-form/score-form.component';
@@ -54,15 +54,21 @@ export class ScoreListComponent implements OnInit {
       data: score
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log(result);
-    // });
+    this.refreshAfterClosingDialog(dialogRef);
   }
 
   openScoreDeleteConfirmationDialog(score: Score): void {
     const dialogRef = this.dialog.open(ScoreDeleteConfirmationComponent, {
       width: '40%',
       data: score
+    });
+
+    this.refreshAfterClosingDialog(dialogRef);
+  }
+
+  refreshAfterClosingDialog(dialogRef: MatDialogRef<any, any>){
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
     });
   }
 }
